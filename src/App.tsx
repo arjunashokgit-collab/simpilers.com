@@ -141,8 +141,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#070709] text-white flex flex-col font-sans selection:bg-rose-600 selection:text-white">
-      {/* Top Floating View Switcher Bar */}
-      <header className="sticky top-0 z-40 bg-[#0e0e12]/90 backdrop-blur-md border-b border-white/10 px-4 py-2.5 flex items-center justify-between">
+      {/* Top Floating View Switcher Bar (Desktop Only) */}
+      <header className="hidden lg:flex sticky top-0 z-40 bg-[#0e0e12]/90 backdrop-blur-md border-b border-white/10 px-4 py-2.5 items-center justify-between">
         <div className="flex items-center space-x-2.5">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center font-bold text-white shadow-md">
             S
@@ -165,7 +165,7 @@ export default function App() {
                 sound.playClick();
                 setViewMode('split');
               }}
-              className={`hidden lg:flex px-3 py-1.5 rounded-lg items-center space-x-1.5 transition-all font-medium ${
+              className={`px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition-all font-medium ${
                 viewMode === 'split'
                   ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
                   : 'text-white/60 hover:text-white'
@@ -212,7 +212,7 @@ export default function App() {
       </header>
 
       {/* Main Workspace Layout */}
-      <main className="flex-1 p-3 sm:p-6 flex items-start justify-center">
+      <main className="flex-1 p-0 lg:p-6 flex items-start justify-center">
         {/* Layout Mode: Split (Side-by-Side Dashboard & Phone Simulator) */}
         {viewMode === 'split' && (
           <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
