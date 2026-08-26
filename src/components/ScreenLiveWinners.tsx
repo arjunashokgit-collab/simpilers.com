@@ -253,6 +253,11 @@ export const ScreenLiveWinners: React.FC<ScreenLiveWinnersProps> = ({
             <img
               src={p.avatarUrl}
               alt={p.username}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  p.username.replace(/[^a-zA-Z0-9]/g, '') || 'IG'
+                )}&background=27272a&color=fff&size=150`;
+              }}
               className={`${
                 isWide ? 'w-18 h-18' : 'w-16 h-16'
               } rounded-full object-cover ring-2 ${

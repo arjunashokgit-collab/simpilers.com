@@ -74,6 +74,11 @@ export const EntriesModal: React.FC<EntriesModalProps> = ({
               <img
                 src={item.avatarUrl}
                 alt={item.username}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    item.username.replace(/[^a-zA-Z0-9]/g, '') || 'IG'
+                  )}&background=27272a&color=fff&size=150`;
+                }}
                 className="w-9 h-9 rounded-full object-cover shrink-0 ring-1 ring-white/10"
               />
               <div className="flex-1 min-w-0">
