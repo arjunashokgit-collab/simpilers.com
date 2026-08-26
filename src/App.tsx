@@ -25,8 +25,24 @@ export default function App() {
   // 1. Core Giveaway Configuration State (Loaded from localStorage or defaults)
   const [giveawayData, setGiveawayData] = useState<FullGiveawayData>(() => loadStoredGiveawayData());
 
-  // 2. View Mode: 'split' (side-by-side) | 'dashboard' (studio only) | 'phone' (simulator only)
-  const [viewMode, setViewMode] = useState<'phone' | 'dashboard' | 'split'>('split');
+  // 2. View Mode: 'split' (side-by-side on desktop) | 'dashboard' (studio only) | 'phone' (simulator only)
+  const [viewMode, setViewMode] = useState<'phone' | 'dashboard' | 'split'>(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      return 'phone';
+    }
+    return 'split';
+  });
+
+  // Switch out of split view automatically if window resizes to mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024 && viewMode === 'split') {
+        setViewMode('phone');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [viewMode]);
 
   // 3. Screen State for Simulator
   const [currentScreen, setCurrentScreen] = useState<ScreenState>('setup');
@@ -149,7 +165,7 @@ export default function App() {
                 sound.playClick();
                 setViewMode('split');
               }}
-              className={`px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition-all font-medium ${
+              className={`hidden lg:flex px-3 py-1.5 rounded-lg items-center space-x-1.5 transition-all font-medium ${
                 viewMode === 'split'
                   ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
                   : 'text-white/60 hover:text-white'
@@ -157,7 +173,7 @@ export default function App() {
               title="Side-by-Side Split View"
             >
               <Layers className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Split View</span>
+              <span>Split View</span>
             </button>
 
             <button

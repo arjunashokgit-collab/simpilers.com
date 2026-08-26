@@ -254,7 +254,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div className="flex items-center bg-black/40 border border-white/10 rounded-xl p-1 text-xs">
             <button
               onClick={() => onToggleViewMode('split')}
-              className={`px-2.5 py-1.5 rounded-lg flex items-center space-x-1.5 transition-all ${
+              className={`hidden lg:flex px-2.5 py-1.5 rounded-lg items-center space-x-1.5 transition-all ${
                 viewMode === 'split'
                   ? 'bg-rose-600 text-white font-semibold shadow-xs'
                   : 'text-white/60 hover:text-white'
@@ -262,7 +262,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               title="Side-by-Side Split View"
             >
               <Layers className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Split View</span>
+              <span>Split View</span>
             </button>
             <button
               onClick={() => onToggleViewMode('dashboard')}
